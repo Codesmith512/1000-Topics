@@ -57,7 +57,7 @@ Static libraries are basically the result of compiling the source files, and jus
 
 ## Shared Libraries (.dll + .lib)
 
-Shared libraries attempt to solve the drawback of the size of static libraries, by instead doing a partial link on link-time, and finishing the linking on program load.
+Shared libraries attempt to solve the drawback of the size of static libraries, by instead doing a partial link on link-time, and finishing the linking on program load. This allows multiple programs/modules to _share_ the library, because the all link to the same instance on runtime.
 
 Compiling a shared library results in two files, the .lib from before, and a .dll. The purpose of this .lib however, is to provide which symbols are defined in the .dll and where, so the compile-time link phase can complete. The actual definitions are stored in the .dll, and the runtime link phase finishes the work by loading the .dll into memory, and replacing the lookup values from the .lib.
 
