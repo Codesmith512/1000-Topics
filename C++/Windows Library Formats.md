@@ -4,52 +4,7 @@ In CMake, under windows (I don't have any experience with other platforms and CM
 
 ## Compiler Theory
 
-For the purpose of this article, some minimal compiler theory is required, please note that the explanations given here are oversimplified, but sufficient for this context. If you have any interest in compiler theory, please research that separately, and skip this section. If you're a programmer, read on!
-
-The compiler effectively has two parts -- the compiler, and the linker (and they run in that order). The compiler translates almost all source code to binary/assembly/etc. , but leaves symbol references in place of function calls and variable references, and provides a symbol definition where they are defined. It outputs the result to an object file.
-
-The source file `first.cpp`
-```
-static int foo = 4;
-static int bar()
-{ return 0; }
-```
-can conceptually be thought of as being compiled into `first.obj`
-```
-global foo:
-    4
-global bar__void:
-    return 0
-```
-
-Another source file `second.cpp`
-```
-#include "first.h"
-static int print_4()
-{ std::cout << (bar() + foo); }
-```
-can be thought of as compiling into `second.obj`
-```
-// first.h only has declarations for foo/bar, no code is produced
-
-global print_4__void:
-    @cout__operator<<__int(@bar__void() + @foo)
-    return
-```
-
-The linker then links these files together, assigning each symbol (foo, bar__void, print_4__void, etc) an address, and inserting it's definition. Then when it encounters a reference to that symbol (@foo, etc.) it can replace it with it's assigned address.
-
-```
-<data section>
-0x1000: 0   // foo
-...
-<code section>
-0x2000: return 0    // bar
-0x2008: ...         // cout.<<() definition
-0x2100: 0x2008(0x2000() + 0x1000)   // print_4 definition
-        return
-...
-```
+For the purpose of this article, some minimal compiler theory is required, so make sure you're familiar with the concepts in `/C++/Basic Compiler-Linker Theory.md`
 
 ## Static Libraries (.lib)
 
