@@ -40,7 +40,7 @@ The IEEE-754 standard does not define exactly what the mantissa has to be, and t
 8b    Exponent  e
 23b   Mantissa  m
 ```
-value = (-1^s)(e-127)(m/8388608)
+value = (-1^s)(2^(e-127))(m/8388608)
 ```
 Hex         | Value           | Notes
 ------------------------------------
@@ -79,7 +79,7 @@ Hex         | Value           | Notes
 11b   Exponent
 52b   Mantissa
 ```
-value = (-1^s)(e-1023)(m/4503599627370496)
+value = (-1^s)(2^(e-1023))(m/4503599627370496)
 
 *I'm not going to do this table, because it's big, it's the exact same premise as 32-bits, and I'm lazy.*
 
